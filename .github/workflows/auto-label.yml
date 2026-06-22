@@ -1,0 +1,47 @@
+name: Auto Label Issues
+
+on:
+  issues:
+    types: [opened, edited]
+
+permissions:
+  issues: write
+
+jobs:
+  auto-label:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Apply labels from issue form
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issue = context.payload.issue;
+            const body = issue.body.toLowerCase();
+
+            const labels = [];
+
+            // Severity
+            if (body.includes("critical")) labels.push("severity:critical");
+            else if (body.includes("high")) labels.push("severity:high");
+            else if (body.includes("medium")) labels.push("severity:medium");
+            else if (body.includes("low")) labels.push("severity:low");
+            else if (body.includes("cosmetic")) labels.push("severity:cosmetic");
+
+            // Category
+            if (body.includes("frontend")) labels.push("frontend");
+            if (body.includes("backend")) labels.push("backend");
+            if (body.includes("mobile")) labels.push("mobile");
+            if (body.includes("ui/ux")) labels.push("ui-ux");
+            if (body.includes("performance")) labels.push("performance");
+            if (body.includes("security")) labels.push("security");
+            if (body.includes("documentation")) labels.push("documentation");
+
+            if (labels.length > 0) {
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                labels
+              });
+            }
