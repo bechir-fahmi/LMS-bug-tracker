@@ -2,12 +2,47 @@ name: Bug Report
 description: Report a bug
 title: "[BUG] "
 labels: ["bug"]
+
 body:
+  - type: markdown
+    attributes:
+      value: |
+        ⚠️ Please search existing issues before creating a new report.
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      options:
+        - Critical
+        - High
+        - Medium
+        - Low
+        - Cosmetic
+    validations:
+      required: true
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      options:
+        - Frontend
+        - Backend
+        - Mobile
+        - UI/UX
+        - Performance
+        - Security
+        - Documentation
+        - Other
+    validations:
+      required: true
+
   - type: textarea
     id: description
     attributes:
-      label: Describe the bug
-      description: What happened?
+      label: Description
+      description: Describe the problem.
     validations:
       required: true
 
@@ -15,7 +50,7 @@ body:
     id: steps
     attributes:
       label: Steps to reproduce
-      description: Tell us how to reproduce it
+      description: How can we reproduce it?
     validations:
       required: true
 
@@ -23,8 +58,21 @@ body:
     id: expected
     attributes:
       label: Expected behavior
+    validations:
+      required: true
+
+  - type: input
+    id: browser
+    attributes:
+      label: Browser
 
   - type: input
     id: device
     attributes:
-      label: Device / Browser
+      label: Device / OS
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots
+      description: Drag screenshots here if available.
