@@ -1,0 +1,9 @@
+blank_issues_enabled: false
+
+contact_links:
+
+  - name: Questions & General Feedback
+
+    url: https://github.com/bechir-fahmi/LMS-bug-tracker/discussions
+
+    about: Use Discussions for questions instead of opening a bug.
